@@ -5,7 +5,6 @@ class DB
 {
     private $link;
 
-
     public function __construct() {
         $this->link = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
@@ -14,9 +13,12 @@ class DB
                 . mysqli_connect_error());
         }
     }
-    protected function queryFunction($sql){
+
+
+    public function exec($sql){
         return $this->link->query($sql);
     }
+
 
     public function queryAll($sql, $class = 'stdClass'){
         $queryresults = $this->link->query($sql);
@@ -32,5 +34,6 @@ class DB
 
     public function queryOne($sql, $class = 'stdClass'){
         return $this->queryAll($sql,$class)[0];
+
     }
 }

@@ -10,4 +10,10 @@ class NewsController
         include __DIR__ . '/../views/news/all.php';
     }
 
+    public static function actionOne(){
+        $id = $_GET['id'];
+        $item = News::getOne($id);
+
+        include __DIR__ . '/../views/news/one.php';
+    }
 }
