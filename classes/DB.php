@@ -36,4 +36,8 @@ class DB
         return $this->queryAll($sql,$class)[0];
 
     }
+
+    public function lastInsId(){
+        return $this->link->insert_id;
+    }
 }

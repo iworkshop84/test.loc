@@ -6,7 +6,11 @@
 </head>
 <body>
 
+<div>
+    Меню сайта:
+    <a href="/">Главная страница</a>
 
+</div>
 
 <?php foreach ($items as $val): ?>
 
