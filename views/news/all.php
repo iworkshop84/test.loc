@@ -15,7 +15,7 @@
 <?php foreach ($items as $val): ?>
 
     <h1><a href="/?ctrl=News&act=One&id=<?= $val->id; ?>"><?= $val->title; ?></a></h1>
-    <div><?= $val   ->text; ?></div>
+    <div><?= $val->text; ?></div>
 
 <?php endforeach; ?>
 
