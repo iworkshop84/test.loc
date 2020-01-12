@@ -4,14 +4,25 @@
 class View
 {
 
-    public function display($url, $items)
+    protected $data = [];
+
+
+    public function __set($name, $value)
     {
-       include __DIR__ . '/../views/' . $url;
+     $this->data[$name] = $value;
+    }
+
+    public function __get($name)
+    {
+        return $this->data[$name];
     }
 
 
 
-
+    public function display($url, $items)
+    {
+       include __DIR__ . '/../views/' . $url;
+    }
 
 
 }
