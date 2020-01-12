@@ -17,10 +17,11 @@ class View
         return $this->data[$name];
     }
 
-
-
-    public function display($url, $items)
+    public function display($url)
     {
+        foreach ($this->data as $key=>$value){
+            $$key = $value;
+        }
        include __DIR__ . '/../views/' . $url;
     }
 

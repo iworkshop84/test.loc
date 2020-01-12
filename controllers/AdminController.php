@@ -49,8 +49,10 @@ class AdminController
     public static function actionAll(){
 
         $items = News::getAll();
+        $view = new View();
+        $view->items =  $items;
+        $view->display('admin/all.php');
 
-        include __DIR__ . '/../views/admin/all.php';
     }
 
 
