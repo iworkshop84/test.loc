@@ -51,7 +51,7 @@ class AdminController
         $items = News::getAll();
         $view = new View();
         $view->items =  $items;
-        $view->display('admin/all.php');
+        $view->render('admin/all.php');
 
     }
 
