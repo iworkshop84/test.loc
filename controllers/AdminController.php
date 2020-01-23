@@ -36,7 +36,7 @@ class AdminController
         if(isset($_POST['delete'])){
             $postnews= News::newsDelete($_GET['id']);
             if($postnews){
-                header('Location: /index.php');
+                header('Location:  /index.php?ctrl=Admin&act=All');
             }
         }
 
@@ -51,16 +51,8 @@ class AdminController
         $items = News::getAll();
         $view = new View();
         $view->items =  $items;
-        $view->render('admin/all.php');
+        $view->display('admin/all.php');
 
     }
-
-
-
-
-
-
-
-
 
 }

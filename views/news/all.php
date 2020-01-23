@@ -9,6 +9,7 @@
 <div>
     Меню сайта:
     <a href="/">Главная страница</a>
+    <a href="/index.php?ctrl=Admin&act=All">Главная страница админки</a>
 
 </div>
 

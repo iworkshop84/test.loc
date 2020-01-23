@@ -15,36 +15,32 @@ class News
 
 
     public static function getAll(){
-        $db = new DB();
-        return $db->queryAll('SELECT * FROM ' . static::$table . ' ORDER BY posttime DESC',  get_called_class());
+        $query = 'SELECT * FROM '.static::$table.' ORDER BY posttime DESC';
+        $db = new DBmysqli();
+        return $db->simpleGetAll($query, get_called_class());
     }
 
-    /*
-    public static function getOne($id){
-        $db = new DB();
-        return $db->queryOne('SELECT * FROM ' . static::$table . ' WHERE id='.$id, 'News');
-    }
-    */
+
     public function newsAdd(){
-        $query ="INSERT INTO posts (title, text, posttime) 
-        VALUES ('". $this->title ."', '". $this->text. "', '". date('Y-m-d H-i-s', time()) . "')";
-        $db = new DB();
-        $db->exec($query);
+        $query = 'INSERT INTO '.static::$table.' (title, text, posttime) VALUES (?, ?, ?)';
+        $db = new DBmysqli();
+        $db->prepareExec($query, 'sss', $this->title, $this->text, date('Y-m-d H-i-s', time()));
         return $db->lastInsId();
     }
+
 
     public function newsEdit(){
-        $query ="UPDATE posts SET title ='". $this->title ."', text ='". $this->text. "'
-        WHERE id ='". $this->id ."'";
-        $db = new DB();
-        $db->exec($query);
-        return $db->lastInsId();
+        $query = 'UPDATE '.static::$table.' SET title=?, text=? WHERE id=?';
+        $db = new DBmysqli();
+        return $db->prepareExec($query,'ssi', $this->title, $this->text, $this->id);
     }
 
+
     public static function newsDelete($id){
-        $query ="DELETE FROM posts WHERE id='". $id ."'";
-        $db = new DB();
-        return $db->exec($query);
+        $query ='DELETE FROM '.static::$table.' WHERE id=?';
+        $db = new DBmysqli();
+        return $db->prepareExec($query, 'i', $id);
+
     }
 
 }
