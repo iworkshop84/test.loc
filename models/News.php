@@ -21,6 +21,13 @@ class News
     }
 
 
+    public static function getOne($id){
+        $query = 'SELECT * FROM ' . static::$table . ' WHERE id=?';
+        $db = new DBmysqli();
+        return $db->prepareGetOne($query, get_called_class(), 'i', $id);
+    }
+
+
     public function newsAdd(){
         $query = 'INSERT INTO '.static::$table.' (title, text, posttime) VALUES (?, ?, ?)';
         $db = new DBmysqli();
