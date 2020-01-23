@@ -5,7 +5,7 @@ class DBmysqli
 {
     private $dbh = null;
     private $stmt = null;
-    private $stmtResult = null;
+
 
     public function __construct()
     {
@@ -19,6 +19,12 @@ class DBmysqli
         // if (mysqli_connect_error()) {
         // die('Ошибка подключения (' . mysqli_connect_errno() . ') ' . mysqli_connect_error());
         // }
+    }
+
+    public function escapeStrForSimple($arg){
+        // Функция экранирования кавычек и прочих ежелательных символов
+        // Использовать вместе с простым simpleGet, без подготовленных запросов на переменных
+        return $this->dbh->escape_string($arg);
     }
 
 
@@ -54,42 +60,49 @@ class DBmysqli
         // return $this->queryAll($sql,$class)[0];
     }
 
-
-    public function escapeStrForSimple($arg){
-        // Функция экранирования кавычек и прочих ежелательных символов
-        // Использовать вместе с простым simpleGet, без подготовленных запросов на переменных
-        return $this->dbh->escape_string($arg);
-    }
+//*************************************************************************************************
+//**************************** ПОДГОТОВЛЕННЫЕ ЗАПРОСЫ *********************************************
+//*************************************************************************************************
 
 
+    public function prepareGetAll($sql, $class, $paramType,  ...$args){
 
-
-
-
-
-
-    public function prepQuery(...$args){
-            $sql = array_shift($args);
-
-            //$this->stmt = $this->dbh->prepare("SELECT * FROM posts WHERE id=?");
-            $this->stmt = $this->dbh->prepare("INSERT INTO posts (title,text) VALUES (?, ?)");
-
-            $title = '13';
-            $text = '12';
-            $id = 1;
-            $this->stmt->bind_param('ss',$title,$text);
-
-            $this->stmt->execute();
-            var_dump($this->stmt);
-            $queryresults = $this->stmt->get_result();
-
+        $this->stmt = $this->dbh->prepare($sql);
+        // Самый вынос мозга, бинд парам способен принимать массив аргументов
+        // об этом ни слова в руководстве, сутки выноса мозга пока не попробовал((
+        $this->stmt->bind_param($paramType,...$args);
+        $this->stmt->execute();
+        $queryresults = $this->stmt->get_result();
 
         $res = [];
-        while($row = $queryresults->fetch_object()) {
+        while($row = $queryresults->fetch_object($class)) {
             $res[] = $row;
         }
-        var_dump( $res);
-
+        return $res;
     }
+
+
+    public function prepareGetOne($sql, $class, $paramType,  ...$args){
+
+        $this->stmt = $this->dbh->prepare($sql);
+        $this->stmt->bind_param($paramType,...$args);
+        $this->stmt->execute();
+        $queryresults = $this->stmt->get_result();
+
+        return $queryresults->fetch_object($class);
+    }
+
+
+    public function prepareExec($sql, $paramType,  ...$args){
+
+        $this->stmt = $this->dbh->prepare($sql);
+        $this->stmt->bind_param($paramType,...$args);
+        return $this->stmt->execute();
+    }
+
+
+
+
+
 
 }
