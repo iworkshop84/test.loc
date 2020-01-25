@@ -15,16 +15,20 @@ class News
 
 
     public static function getAll(){
+
+
         $query = 'SELECT * FROM '.static::$table.' ORDER BY posttime DESC';
         $db = new DBmysqli();
-        return $db->simpleGetAll($query, get_called_class());
+        $db->setClassName(get_called_class());
+        return $db->simpleGetAll($query);
     }
 
 
     public static function getOne($id){
         $query = 'SELECT * FROM ' . static::$table . ' WHERE id=?';
         $db = new DBmysqli();
-        return $db->prepareGetOne($query, get_called_class(), 'i', $id);
+        $db->setClassName(get_called_class());
+        return $db->prepareGetOne($query, 'i', $id);
     }
 
 

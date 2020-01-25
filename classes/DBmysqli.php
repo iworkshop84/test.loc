@@ -5,12 +5,16 @@ class DBmysqli
 {
     private $dbh = null;
     private $stmt = null;
+    private $className = 'stdClass';
+
+    public function setClassName($className){
+        $this->className = $className;
+    }
 
 
     public function __construct()
     {
         $this->dbh = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-
             if ($this->dbh->connect_error) {
             die('Ошибка подключения (' . $this->dbh->connect_errno . ') '
                 . $this->dbh->connect_error);
@@ -33,20 +37,20 @@ class DBmysqli
     }
 
 
-    public function simpleGetAll($sql, $class = 'stdClass'){
+    public function simpleGetAll($sql){
         $queryresults = $this->simpleExec($sql);
         if(!$queryresults){
             return false;
         }
         $res = [];
-        while($row = $queryresults->fetch_object($class)) {
+        while($row = $queryresults->fetch_object($this->className)) {
             $res[] = $row;
         }
         return $res;
     }
 
 
-    public function simpleGetOne($sql, $class = 'stdClass'){
+    public function simpleGetOne($sql){
 
         $queryresults = $this->simpleExec($sql);
         if(!$queryresults){
@@ -55,7 +59,7 @@ class DBmysqli
             // вернет объект mysqli_result. Для остальных успешных запросов mysqli_query() вернет TRUE.
             return false;
         }
-        return $queryresults->fetch_object($class);
+        return $queryresults->fetch_object($this->className);
         // Старый вариант этого метода, более ресурсоёмкий
         // return $this->queryAll($sql,$class)[0];
     }
@@ -86,14 +90,14 @@ class DBmysqli
     }
 
 
-    public function prepareGetOne($sql, $class, $paramType,  ...$args){
+    public function prepareGetOne($sql, $paramType,  ...$args){
 
         $this->stmt = $this->dbh->prepare($sql);
         $this->stmt->bind_param($paramType,...$args);
         $this->stmt->execute();
         $queryresults = $this->stmt->get_result();
 
-        return $queryresults->fetch_object($class);
+        return $queryresults->fetch_object($this->className);
     }
 
 
