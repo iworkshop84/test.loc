@@ -13,24 +13,33 @@ class DBpdo
                                         DB_USER, DB_PASSWORD);
     }
 
-    public function setClassName($className){
+    public function setClassName($className)
+    {
         $this->className = $className;
     }
 
-    public function query($sql, $data = []){
+    public function query($sql, $data = [])
+    {
         $sth = $this->dbh->prepare($sql);
         $sth->execute($data);
         return $sth->fetchAll(PDO::FETCH_CLASS, $this->className);
     }
 
-    public function exec($sql, $data = []){
+    public function exec($sql, $data = [])
+    {
         $sth = $this->dbh->prepare($sql);
-        $sth->execute($data);
-        return $sth->rowCount();
+        return $sth->execute($data);
+        //return $sth->rowCount();
+    }
+
+    public function rowCount()
+    {
+
     }
 
 
-    public function lastInsId(){
+    public function lastInsId()
+    {
         return $this->dbh->lastInsertId();
     }
 

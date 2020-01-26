@@ -41,10 +41,11 @@ class AdminController
         }
 
         $id = $_GET['id'];
-        $item = News::getOne($id);
+        $item = News::getOneById($id);
 
         include __DIR__ . '/../views/admin/editnews.php';
     }
+
 
     public static function actionAll(){
 

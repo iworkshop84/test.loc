@@ -7,15 +7,18 @@ class View
 
     public $data = [];
 
+
     public function __set($name, $value)
     {
      $this->data[$name] = $value;
     }
 
+
     public function __get($name)
     {
         return $this->data[$name];
     }
+
 
     public function render($url)
     {
@@ -30,13 +33,16 @@ class View
        return $contentStream;
     }
 
+
     public function display($tpl){
         echo $this->render($tpl);
     }
 
+
     public function count(){
             return count($this->data);
     }
+
 
     public function __isset($name)
     {
