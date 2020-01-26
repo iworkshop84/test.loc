@@ -7,11 +7,6 @@ class DBmysqli
     private $stmt = null;
     private $className = 'stdClass';
 
-    public function setClassName($className){
-        $this->className = $className;
-    }
-
-
     public function __construct()
     {
         $this->dbh = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
@@ -23,6 +18,10 @@ class DBmysqli
         // if (mysqli_connect_error()) {
         // die('Ошибка подключения (' . mysqli_connect_errno() . ') ' . mysqli_connect_error());
         // }
+    }
+
+    public function setClassName($className){
+        $this->className = $className;
     }
 
     public function escapeStrForSimple($arg){
@@ -107,10 +106,5 @@ class DBmysqli
         $this->stmt->bind_param($paramType,...$args);
         return $this->stmt->execute();
     }
-
-
-
-
-
 
 }

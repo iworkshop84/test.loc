@@ -16,12 +16,27 @@ class News
 
     public static function getAll(){
 
-
-        $query = 'SELECT * FROM '.static::$table.' ORDER BY posttime DESC';
-        $db = new DBmysqli();
+        $db = new DBpdo();
         $db->setClassName(get_called_class());
-        return $db->simpleGetAll($query);
+        $sql =  'INSERT INTO '.static::$table.' (title, text) VALUES (:title, :text)';
+        $db->exec( $sql, [':title'=>10, ':text'=>20]);
+        $db->exec( $sql, [':title'=>50, ':text'=>70]);
+        $res = $db->lastInsId();
+        var_dump($res);
+
+        die;
+        return $db->query('SELECT * FROM '.static::$table.' ORDER BY posttime DESC');
     }
+
+    public static function getOneById($id){
+
+        $db = new DBpdo();
+        $db->setClassName(get_called_class());
+        $query = 'SELECT * FROM ' . static::$table . ' WHERE id=:id';
+        return $db->query($query, [':id'=>$id])[0];
+
+    }
+
 
 
     public static function getOne($id){

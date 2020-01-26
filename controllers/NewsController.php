@@ -1,23 +1,20 @@
 <?php
 
 
-
 class NewsController
 {
-
     public static function actionAll(){
         $news = News::getAll();
 
         $view = new View();
         $view->items =  $news;
-
-       $view->display('news/all.php');
+        $view->display('news/all.php');
 
     }
 
     public static function actionOne(){
         $id = $_GET['id'];
-        $singleNews = News::getOne($id);
+        $singleNews = News::getOneById($id);
 
         $view = new View();
         $view->item = $singleNews;
