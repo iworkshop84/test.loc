@@ -32,12 +32,6 @@ class DBpdo
         //return $sth->rowCount();
     }
 
-    public function rowCount()
-    {
-
-    }
-
-
     public function lastInsId()
     {
         return $this->dbh->lastInsertId();

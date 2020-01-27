@@ -3,10 +3,23 @@
 
 abstract class AbstractModel
 {
-    public static $table;
+    protected static $table;
 
     protected static $allowedColls;
     protected static $allowedSort = ['ASC','DESC'];
+
+    protected $data = [];
+
+
+    public function __set($name, $value)
+    {
+        $this->data[$name] = $value;
+    }
+
+    public function __get($name)
+    {
+        return $this->data[$name];
+    }
 
 
     public static function simpleGetAll() : array
@@ -16,9 +29,10 @@ abstract class AbstractModel
         return $db->query('SELECT * FROM '.static::$table);
     }
 
-    protected static function checkSort($data, $allowed)
+
+    protected static function checkAllowed($data, $allowedArr)
     {
-        if(in_array($data, $allowed))
+        if(in_array($data, $allowedArr))
         {
             return $data;
         }
@@ -30,7 +44,7 @@ abstract class AbstractModel
         $db = new DBpdo();
         $db->setClassName(get_called_class());
         $sql = 'SELECT * FROM '. static::$table .' ORDER BY '.
-            static::checkSort($column, static::$allowedColls) .' '. static::checkSort($order, static::$allowedSort);
+            static::checkAllowed($column, static::$allowedColls) .' '. static::checkAllowed($order, static::$allowedSort);
         return $db->query($sql);
     }
 
@@ -40,7 +54,7 @@ abstract class AbstractModel
         $db = new DBpdo();
         $db->setClassName(get_called_class());
         $query = 'SELECT * FROM ' . static::$table . ' WHERE '.
-            static::checkSort($column,  static::$allowedColls).'=:'.$column;
+            static::checkAllowed($column,  static::$allowedColls).'=:'.$column;
 
         return $db->query($query, [':'.$column=>$value])[0];
     }
@@ -53,6 +67,55 @@ abstract class AbstractModel
         $query = 'SELECT * FROM ' . static::$table . ' WHERE id=:id';
         return $db->query($query, [':id'=>$id])[0];
     }
+
+
+    public function insert()
+    {
+        $cols = array_keys($this->data);
+        //$vals = [];
+        $dataIns = [];
+        foreach ($cols as $val){
+            // убрал массив для подстановок в VALUES, заменил на ключи из массива с значениями
+            //$vals[] = ':'. $val;
+            $dataIns[':'. $val] = $this->data[$val];
+        }
+
+        $sql = 'INSERT INTO '.static::$table.' ('. implode(', ', $cols) .') 
+        VALUES ('. implode(', ', array_keys($dataIns))  .')';
+
+        $db = new DBpdo();
+        $db->exec($sql, $dataIns);
+        return $db->lastInsId();
+        }
+
+
+        public function update()
+        {
+            $arr = $this->data;
+            $dataIns =[];
+            $rools =[];
+            foreach ($arr as $key=>$val){
+                $dataIns[':' . $key] = $val;
+                $rools[$key] = $key .' = :' . $key;
+            }
+
+            $where = array_shift($rools);
+
+            $sql = 'UPDATE '.static::$table. ' SET '. implode(', ', ($rools)) .'
+            WHERE ('. $where .')';
+            $db = new DBpdo();
+            $db->exec($sql, $dataIns);
+            return $db->lastInsId();
+        }
+
+
+        public function delete($column, $value)
+        {
+            $sql ='DELETE FROM '.static::$table.' WHERE 
+            '. static::checkAllowed($column,  static::$allowedColls).'=:'.$column;;
+            $db = new DBpdo();
+            return $db->exec($sql, [':'.$column=>$value]);
+        }
 
 
 }

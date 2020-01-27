@@ -4,52 +4,66 @@
 class AdminController
 {
 
-    public static function actionAdd(){
-
-        if(!empty($_POST)){
+    public static function actionAdd()
+    {
+        if(!empty($_POST))
+        {
             $news = new News();
             $news->title = $_POST['title'];
             $news->text = $_POST['text'];
-            $postnews = $news->newsAdd();
-            if($postnews){
+            $news->posttime = date('Y-m-d H-i-s', time());
+
+            $postnews = $news->insert();
+            if($postnews)
+            {
                 header('Location: /index.php?ctrl=Admin&act=Edit&id='.$postnews);
             }
         }
 
-        include __DIR__ . '/../views/admin/addnews.php';
+        $view = new View();
+        $view->display('admin/addnews.php');
     }
 
-    public static function actionEdit(){
 
-            if(isset($_POST['edit'])){
+    public static function actionEdit()
+    {
+            if(isset($_POST['edit']))
+            {
                 $news = new News();
                 $news->id = $_GET['id'];
                 $news->title = $_POST['title'];
                 $news->text = $_POST['text'];
 
-                $postnews = $news->newsEdit();
-                if($postnews){
+                $postnews = $news->update();
+                if($postnews)
+                {
                     header('Location: /index.php?ctrl=Admin&act=Edit&id='. $postnews);
                 }
             }
 
-        if(isset($_POST['delete'])){
-            $postnews= News::newsDelete($_GET['id']);
-            if($postnews){
-                header('Location:  /index.php?ctrl=Admin&act=All');
+            if(isset($_POST['delete']))
+            {
+                $news = new News();
+                $res = $news->delete('id', $_GET['id']);
+                //$postnews= News::delete('id', $_GET['id']);
+                if($res)
+                {
+                    header('Location:  /index.php?ctrl=Admin&act=All');
+                }
             }
-        }
 
-        $id = $_GET['id'];
-        $item = News::getOneById($id);
+            $item = News::getOneByColumn('id', $_GET['id']);
 
-        include __DIR__ . '/../views/admin/editnews.php';
+            $view = new View();
+            $view->item =  $item;
+            $view->display('admin/editnews.php');
     }
 
 
-    public static function actionAll(){
+    public static function actionAll()
+    {
+        $items = News::orderGetAll('posttime', 'DESC');
 
-        $items = News::getAll();
         $view = new View();
         $view->items =  $items;
         $view->display('admin/all.php');
