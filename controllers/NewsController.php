@@ -8,7 +8,7 @@ class NewsController
         $news = News::orderGetAll('posttime','DESC');
 
         $view = new View();
-        $view->items =  $news;
+        $view->items = $news;
         $view->display('news/all.php');
     }
 

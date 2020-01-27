@@ -1,21 +1,25 @@
 <?php
 
 
-
+/**
+ * Class News
+ * @author iworkshop84
+ *
+ * @property integer $id;
+ * @property string $title;
+ * @property string $text;
+ * @property string posttime;
+ * @property string updatetime;
+ *
+ */
 class News
     extends AbstractModel
 {
-    /*
-    public $id;
-    public $title;
-    public $text;
-    public $posttime;
-    public $updatetime;
-    */
     protected static $allowedColls = ['id','title','text','posttime','updatetime'];
     protected static $table = 'posts';
 
-    /* Старый вариант
+
+    /**  Старый вариант
         public static function getAll() : array
         {
             $db = new DBpdo();

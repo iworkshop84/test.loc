@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Class AdminController
+ * @author iworkshop84
+ */
 
 class AdminController
 {
@@ -13,7 +16,7 @@ class AdminController
             $news->text = $_POST['text'];
             $news->posttime = date('Y-m-d H-i-s', time());
 
-            $postnews = $news->insert();
+            $postnews = $news->save();
             if($postnews)
             {
                 header('Location: /index.php?ctrl=Admin&act=Edit&id='.$postnews);
@@ -34,7 +37,7 @@ class AdminController
                 $news->title = $_POST['title'];
                 $news->text = $_POST['text'];
 
-                $postnews = $news->update();
+                $postnews = $news->save();
                 if($postnews)
                 {
                     header('Location: /index.php?ctrl=Admin&act=Edit&id='. $postnews);
@@ -45,7 +48,6 @@ class AdminController
             {
                 $news = new News();
                 $res = $news->delete('id', $_GET['id']);
-                //$postnews= News::delete('id', $_GET['id']);
                 if($res)
                 {
                     header('Location:  /index.php?ctrl=Admin&act=All');

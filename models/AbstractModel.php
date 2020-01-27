@@ -10,7 +10,6 @@ abstract class AbstractModel
 
     protected $data = [];
 
-
     public function __set($name, $value)
     {
         $this->data[$name] = $value;
@@ -19,6 +18,11 @@ abstract class AbstractModel
     public function __get($name)
     {
         return $this->data[$name];
+    }
+
+    public function __isset($name)
+    {
+        return isset($this->data[$name]);
     }
 
 
@@ -44,7 +48,8 @@ abstract class AbstractModel
         $db = new DBpdo();
         $db->setClassName(get_called_class());
         $sql = 'SELECT * FROM '. static::$table .' ORDER BY '.
-            static::checkAllowed($column, static::$allowedColls) .' '. static::checkAllowed($order, static::$allowedSort);
+            static::checkAllowed($column, static::$allowedColls) .' '.
+            static::checkAllowed($order, static::$allowedSort);
         return $db->query($sql);
     }
 
@@ -69,7 +74,7 @@ abstract class AbstractModel
     }
 
 
-    public function insert()
+    private function insert()
     {
         $cols = array_keys($this->data);
         //$vals = [];
@@ -80,8 +85,8 @@ abstract class AbstractModel
             $dataIns[':'. $val] = $this->data[$val];
         }
 
-        $sql = 'INSERT INTO '.static::$table.' ('. implode(', ', $cols) .') 
-        VALUES ('. implode(', ', array_keys($dataIns))  .')';
+        $sql = 'INSERT INTO '.static::$table.' ('.
+            implode(', ', $cols) .') VALUES ('. implode(', ', array_keys($dataIns))  .')';
 
         $db = new DBpdo();
         $db->exec($sql, $dataIns);
@@ -89,7 +94,7 @@ abstract class AbstractModel
         }
 
 
-        public function update()
+        private function update()
         {
             $arr = $this->data;
             $dataIns =[];
@@ -111,11 +116,20 @@ abstract class AbstractModel
 
         public function delete($column, $value)
         {
-            $sql ='DELETE FROM '.static::$table.' WHERE 
-            '. static::checkAllowed($column,  static::$allowedColls).'=:'.$column;;
+            $sql ='DELETE FROM '.static::$table.' WHERE '.
+                static::checkAllowed($column,  static::$allowedColls).'=:'.$column;
             $db = new DBpdo();
             return $db->exec($sql, [':'.$column=>$value]);
         }
 
+
+        public function save()
+        {
+            if(isset($this->id)){
+                return $this->update();
+            }else{
+                return $this->insert();
+            }
+        }
 
 }
