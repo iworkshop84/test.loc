@@ -72,4 +72,19 @@ class AdminController
 
     }
 
+
+    public static function actionLog()
+    {
+        $errors = ErrorLog::readLog();
+
+        $view = new View();
+        if(!empty($errors)){
+            $view->items = $errors;
+        }else{
+            $view->items = [];
+        }
+
+        $view->display('admin/erroradmin.php');
+    }
+
 }

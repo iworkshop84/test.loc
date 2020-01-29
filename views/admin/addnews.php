@@ -11,6 +11,7 @@
     <a href="/">Главная страница</a>
     <a href="/index.php?ctrl=Admin&act=Add">Добавить новость</a>
     <a href="/index.php?ctrl=Admin&act=All">Все новости в админке</a>
+    <a href="/index.php?ctrl=Admin&act=Log">Лог ошибок</a>
 
 </div>
 

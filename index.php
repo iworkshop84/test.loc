@@ -22,14 +22,12 @@ try{
     $errLog->code = $e->getCode();
     $errLog->message = $e->getMessage();
     $errLog->trace = $e->getTrace();
-    $errLog->log();
+    $errLog->writeLog();
 
         $view = new View();
-        $view->code = $e->getCode();
         $view->message = $e->getMessage();
 
-
-        switch ($view->code){
+        switch ($errLog->code){
             case 1:
                 header('HTTP/1.1 403 Not Found');
                 break;
