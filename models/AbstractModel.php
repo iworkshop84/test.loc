@@ -25,15 +25,6 @@ abstract class AbstractModel
         return isset($this->data[$name]);
     }
 
-
-    public static function simpleGetAll() : array
-    {
-        $db = new DBpdo();
-        $db->setClassName(get_called_class());
-        return $db->query('SELECT * FROM '.static::$table);
-    }
-
-
     protected static function checkAllowed($data, $allowedArr)
     {
         if(in_array($data, $allowedArr))
@@ -43,6 +34,16 @@ abstract class AbstractModel
         return false;
     }
 
+
+
+    public static function simpleGetAll()
+    {
+        $db = new DBpdo();
+        $db->setClassName(get_called_class());
+        return $db->query('SELECT * FROM '.static::$table);
+    }
+
+
     public static function orderGetAll($column='id', $order='ASC')
     {
         $db = new DBpdo();
@@ -50,11 +51,12 @@ abstract class AbstractModel
         $sql = 'SELECT * FROM '. static::$table .' ORDER BY '.
             static::checkAllowed($column, static::$allowedColls) .' '.
             static::checkAllowed($order, static::$allowedSort);
-        return $db->query($sql);
+        $res = $db->query($sql);
+        return $res;
     }
 
 
-    public static function getOneByColumn($column, $value) : object
+    public static function getOneByColumn($column, $value)
     {
         $db = new DBpdo();
         $db->setClassName(get_called_class());
@@ -62,18 +64,22 @@ abstract class AbstractModel
             static::checkAllowed($column,  static::$allowedColls).'=:'.$column;
         $res = $db->query($query, [':'.$column=>$value]);
         if(empty($res)){
-            throw new BaseException('Указанная запись на сайте на найдена',2);
+           return null;
         }
         return $res[0];
     }
 
 
-     public static function getOneById($id) : object
+     public static function getOneById($id)
     {
         $db = new DBpdo();
         $db->setClassName(get_called_class());
         $query = 'SELECT * FROM ' . static::$table . ' WHERE id=:id';
-        return $db->query($query, [':id'=>$id])[0];
+        $res = $db->query($query, [':id'=>$id])[0];
+        if(empty($res)){
+            return null;
+        }
+        return $res[0];
     }
 
 

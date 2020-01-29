@@ -6,6 +6,9 @@ class NewsController
     public static function actionAll()
     {
         $news = News::orderGetAll('posttime','DESC');
+        if(empty($news)){
+            throw new BaseException('Ничего не найдено',2);
+        }
 
         $view = new View();
         $view->items = $news;
@@ -16,6 +19,9 @@ class NewsController
     public static function actionOne()
     {
         $singleNews = News::getOneByColumn('id',  $_GET['id']);
+        if(!$singleNews){
+            throw new BaseException('Указанной статьи на сайте нет',2);
+        }
 
         $view = new View();
         $view->item = $singleNews;

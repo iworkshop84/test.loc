@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+//ini_set('display_errors', 1);
 require_once __DIR__ . '/core/autoload.php';
 
 
@@ -15,13 +15,20 @@ $controller = new $ctrollerClassName;
 try{
     $method = 'action' . $act;
     $controller->$method();
-    }catch (Exception $e){
+    }
+    catch (Exception $e){
 
-       $view = new View();
-       $view->code = $e->getCode();
-       $view->message = $e->getMessage();
+    $errLog = new ErrorLog();
+    $errLog->code = $e->getCode();
+    $errLog->message = $e->getMessage();
+    $errLog->trace = $e->getTrace();
+    $errLog->log();
 
-       //$view->getPrevios = $e->getPrevious();
+        $view = new View();
+        $view->code = $e->getCode();
+        $view->message = $e->getMessage();
+
+
         switch ($view->code){
             case 1:
                 header('HTTP/1.1 403 Not Found');

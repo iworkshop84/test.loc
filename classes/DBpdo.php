@@ -12,7 +12,7 @@ class DBpdo
         $dsn = 'mysql:host='. DB_HOST .';dbname='. DB_NAME.';charset='. DB_CHARSET;
         $opt = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
         try{
-        $this->dbh = new PDO($dsn,DB_USER, DB_PASSWORD, $opt);
+            $this->dbh = new PDO($dsn,DB_USER, DB_PASSWORD, $opt);
         }catch (PDOException $exc){
             throw new BaseException('Ошибка подключения к базе данных', 1, $exc);
         }
@@ -42,7 +42,6 @@ class DBpdo
         }catch (PDOException $exc){
             throw new BaseException('Ошибка запроса к базе данных',1, $exc);
         }
-        //return $sth->rowCount();
     }
 
     public function lastInsId()

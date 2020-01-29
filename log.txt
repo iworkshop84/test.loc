@@ -1,0 +1,3 @@
+Date: 00:01:09 01.30.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 17 |Class:| NewsController
+Date: 00:01:44 01.30.2020 |MyCode:| 1 |MyMsg:| Ошибка запроса к базе данных |File:| W:\domains\test.loc\www\models\AbstractModel.php |Line:| 65 |Class:| DBpdo
+Date: 00:01:50 01.30.2020 |MyCode:| 1 |MyMsg:| Ошибка запроса к базе данных |File:| W:\domains\test.loc\www\models\AbstractModel.php |Line:| 65 |Class:| DBpdo
