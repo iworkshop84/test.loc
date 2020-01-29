@@ -5,19 +5,14 @@
     <title>Новости</title>
 </head>
 <body>
-
 <div>
     Меню сайта:
     <a href="/">Главная страница</a>
     <a href="/index.php?ctrl=Admin&act=All">Главная страница админки</a>
 </div>
 
-<?php foreach ($items as $val): ?>
-
-    <h1><a href="/?ctrl=News&act=One&id=<?= $val->id; ?>"><?= $val->title; ?></a></h1>
-    <div><?= $val->text; ?></div>
-
-<?php endforeach; ?>
+<h1><?= $this->message; ?></h1>
+<div><?= $this->message; ?></div>
 
 </body>
 </html>

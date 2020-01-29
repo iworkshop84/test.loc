@@ -43,7 +43,7 @@ abstract class AbstractModel
         return false;
     }
 
-    public static function orderGetAll($column='id', $order='ASC') : array
+    public static function orderGetAll($column='id', $order='ASC')
     {
         $db = new DBpdo();
         $db->setClassName(get_called_class());
@@ -60,8 +60,11 @@ abstract class AbstractModel
         $db->setClassName(get_called_class());
         $query = 'SELECT * FROM ' . static::$table . ' WHERE '.
             static::checkAllowed($column,  static::$allowedColls).'=:'.$column;
-
-        return $db->query($query, [':'.$column=>$value])[0];
+        $res = $db->query($query, [':'.$column=>$value]);
+        if(empty($res)){
+            throw new BaseException('Указанная запись на сайте на найдена',2);
+        }
+        return $res[0];
     }
 
 

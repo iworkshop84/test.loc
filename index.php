@@ -11,6 +11,26 @@ $act = !empty($_GET['act']) ? $_GET['act'] : 'All';
 $ctrollerClassName = $ctrl . 'Controller';
 
 $controller = new $ctrollerClassName;
-$method = 'action' . $act;
 
-$controller->$method();
+try{
+    $method = 'action' . $act;
+    $controller->$method();
+    }catch (Exception $e){
+
+       $view = new View();
+       $view->code = $e->getCode();
+       $view->message = $e->getMessage();
+
+       //$view->getPrevios = $e->getPrevious();
+        switch ($view->code){
+            case 1:
+                header('HTTP/1.1 403 Not Found');
+                break;
+            case 2:
+                header('HTTP/1.1 404 Not Found');
+                break;
+        }
+
+        $view->display('/news/404.php');
+
+}

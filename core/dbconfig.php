@@ -7,3 +7,5 @@ define('DB_USER', 'root');
 define('DB_PASSWORD', '');
 /** Имя сервера MySQL */
 define('DB_HOST', 'localhost');
+/** Кодировка таблицы MySQL */
+define('DB_CHARSET', 'utf8');

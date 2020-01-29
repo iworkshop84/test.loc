@@ -7,7 +7,8 @@
 <body>
 <div>
     Меню сайта:
-    <a href="/index.php">Главная страница</a>
+    <a href="/">Главная страница</a>
+    <a href="/index.php?ctrl=Admin&act=All">Главная страница админки</a>
 </div>
 
     <h1><?= $item->title; ?></h1>

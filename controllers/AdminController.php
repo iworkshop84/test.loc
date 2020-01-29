@@ -67,7 +67,7 @@ class AdminController
         $items = News::orderGetAll('posttime', 'DESC');
 
         $view = new View();
-        $view->items =  $items;
+        $view->items = $items;
         $view->display('admin/all.php');
 
     }

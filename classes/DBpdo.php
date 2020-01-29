@@ -9,8 +9,13 @@ class DBpdo
 
     public function __construct()
     {
-        $this->dbh = new PDO('mysql:host='. DB_HOST .';dbname='. DB_NAME,
-                                        DB_USER, DB_PASSWORD);
+        $dsn = 'mysql:host='. DB_HOST .';dbname='. DB_NAME.';charset='. DB_CHARSET;
+        $opt = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
+        try{
+        $this->dbh = new PDO($dsn,DB_USER, DB_PASSWORD, $opt);
+        }catch (PDOException $exc){
+            throw new BaseException('Ошибка подключения к базе данных', 1, $exc);
+        }
     }
 
     public function setClassName($className)
@@ -21,14 +26,22 @@ class DBpdo
     public function query($sql, $data = [])
     {
         $sth = $this->dbh->prepare($sql);
-        $sth->execute($data);
+        try{
+            $sth->execute($data);
+        }catch (PDOException $exc){
+            throw new BaseException('Ошибка запроса к базе данных',1, $exc);
+        }
         return $sth->fetchAll(PDO::FETCH_CLASS, $this->className);
     }
 
     public function exec($sql, $data = [])
     {
         $sth = $this->dbh->prepare($sql);
-        return $sth->execute($data);
+        try{
+            return $sth->execute($data);
+        }catch (PDOException $exc){
+            throw new BaseException('Ошибка запроса к базе данных',1, $exc);
+        }
         //return $sth->rowCount();
     }
 
@@ -36,11 +49,6 @@ class DBpdo
     {
         return $this->dbh->lastInsertId();
     }
-
-
-
-
-
 
 }
 
