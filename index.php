@@ -1,22 +1,24 @@
 <?php
 error_reporting(E_ALL);
-//ini_set('display_errors', 1);
+
 require_once __DIR__ . '/core/autoload.php';
 
+$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$pathParts = explode('/', $path);
 
-$ctrl = !empty($_GET['ctrl']) ? $_GET['ctrl'] : 'News';
-$act = !empty($_GET['act']) ? $_GET['act'] : 'All';
+$ctrl = !empty($pathParts[1]) ? $pathParts[1] : 'News';
+$act = !empty($pathParts[2]) ? $pathParts[2] : 'All';
 
 
-$ctrollerClassName = $ctrl . 'Controller';
-
-$controller = new $ctrollerClassName;
 
 try{
+    $ctrollerClassName = $ctrl . 'Controller';
+    $controller = new $ctrollerClassName;
+
     $method = 'action' . $act;
     $controller->$method();
     }
-    catch (Exception $e){
+catch (Exception $e){
 
     $errLog = new ErrorLog();
     $errLog->code = $e->getCode();
@@ -35,7 +37,5 @@ try{
                 header('HTTP/1.1 404 Not Found');
                 break;
         }
-
         $view->display('/news/404.php');
-
-}
+    }

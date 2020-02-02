@@ -112,9 +112,7 @@ abstract class AbstractModel
                 $dataIns[':' . $key] = $val;
                 $rools[$key] = $key .' = :' . $key;
             }
-
             $where = array_shift($rools);
-
             $sql = 'UPDATE '.static::$table. ' SET '. implode(', ', ($rools)) .'
             WHERE ('. $where .')';
             $db = new DBpdo();
