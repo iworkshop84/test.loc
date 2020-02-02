@@ -10,12 +10,12 @@
 <div>
     Меню сайта:
     <a href="/">Главная страница</a>
-    <a href="/index.php?ctrl=Admin&act=Add">Добавить новость</a>
-    <a href="/index.php?ctrl=Admin&act=All">Все новости в админке</a>
-    <a href="/index.php?ctrl=Admin&act=Log">Лог ошибок</a>
+    <a href="/admin/add">Добавить новую новость</a>
+    <a href="/admin/all">Все новости в админке</a>
+    <a href="/admin/log">Лог ошибок</a>
 </div>
 
-<form action="/?ctrl=Admin&act=Edit&id=<?= $item->id; ?>" method="post" enctype="multipart/form-data">
+<form action="/admin/edit?id=<?= $item->id; ?>" method="post" enctype="multipart/form-data">
     <p>Название статьи:</p>
     <input type="text" name="title" value="<?= $item->title; ?>">
 

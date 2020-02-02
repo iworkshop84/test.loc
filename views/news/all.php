@@ -9,12 +9,12 @@
 <div>
     Меню сайта:
     <a href="/">Главная страница</a>
-    <a href="/index.php?ctrl=Admin&act=All">Главная страница админки</a>
+    <a href="/admin/all">Главная страница админки</a>
 </div>
 
 <?php foreach ($items as $val): ?>
 
-    <h1><a href="/?ctrl=News&act=One&id=<?= $val->id; ?>"><?= $val->title; ?></a></h1>
+    <h1><a href="/news/one?id=<?= $val->id; ?>"><?= $val->title; ?></a></h1>
     <div><?= $val->text; ?></div>
 
 <?php endforeach; ?>

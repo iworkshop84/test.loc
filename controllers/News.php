@@ -1,11 +1,15 @@
 <?php
+namespace App\Controllers;
 
+use App\Models\News as NewsModel;
+use App\Classes\BaseException;
+use App\Classes\View;
 
-class NewsController
+class News
 {
     public static function actionAll()
     {
-        $news = News::orderGetAll('posttime','DESC');
+        $news = NewsModel::orderGetAll('posttime','DESC');
         if(empty($news)){
             throw new BaseException('Ничего не найдено',2);
         }
@@ -18,7 +22,8 @@ class NewsController
 
     public static function actionOne()
     {
-        $singleNews = News::getOneByColumn('id',  $_GET['id']);
+        $singleNews = NewsModel::getOneByColumn('id',  $_GET['id']);
+
         if(!$singleNews){
             throw new BaseException('Указанной статьи на сайте нет',2);
         }

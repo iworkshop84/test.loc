@@ -1,10 +1,15 @@
 <?php
 /**
- * Class AdminController
+ * Class Admin
  * @author iworkshop84
  */
+namespace App\Controllers;
 
-class AdminController
+use App\Models\News;
+use App\Classes\View;
+Use App\Classes\ErrorLog;
+
+class Admin
 {
 
     public static function actionAdd()
@@ -19,7 +24,7 @@ class AdminController
             $postnews = $news->save();
             if($postnews)
             {
-                header('Location: /index.php?ctrl=Admin&act=Edit&id='.$postnews);
+                header('Location: /admin/edit?id='.$postnews);
             }
         }
 
@@ -40,7 +45,7 @@ class AdminController
                 $postnews = $news->save();
                 if($postnews)
                 {
-                    header('Location: /index.php?ctrl=Admin&act=Edit&id='. $postnews);
+                    header('Location: /admin/edit?id='. $postnews);
                 }
             }
 
@@ -50,7 +55,7 @@ class AdminController
                 $res = $news->delete('id', $_GET['id']);
                 if($res)
                 {
-                    header('Location:  /index.php?ctrl=Admin&act=All');
+                    header('Location:  /admin/all');
                 }
             }
 

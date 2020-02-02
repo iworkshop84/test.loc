@@ -1,7 +1,7 @@
 <?php
+namespace App\Classes;
 
-
-class BaseException extends Exception
+class BaseException extends \Exception
 {
 
 }

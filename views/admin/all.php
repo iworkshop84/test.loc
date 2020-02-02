@@ -9,15 +9,15 @@
 <div>
     Меню сайта:
     <a href="/">Главная страница</a>
-    <a href="/index.php?ctrl=Admin&act=Add">Добавить новую новость</a>
-    <a href="/index.php?ctrl=Admin&act=All">Все новости в админке</a>
-    <a href="/index.php?ctrl=Admin&act=Log">Лог ошибок</a>
+    <a href="/admin/add">Добавить новую новость</a>
+    <a href="/admin/all">Все новости в админке</a>
+    <a href="/admin/log">Лог ошибок</a>
 </div>
 
 <?php foreach ($items as $val): ?>
 
     <p>
-        <b>Редактировать:</b> <a href="/?ctrl=Admin&act=Edit&id=<?= $val->id; ?>"><?= $val->title; ?></a>................
+        <b>Редактировать:</b> <a href="/admin/edit?id=<?= $val->id; ?>"><?= $val->title; ?></a>................
         <b>Дата публикации:</b> <?= $val->posttime; ?>................
         <b>Дата обновления:</b> <?= $val->updatetime; ?>
     </p>

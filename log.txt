@@ -1,6 +1,11 @@
-|Date:| 01:01:01 01.30.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 17 |Class:| NewsController
-|Date:| 01:01:08 01.30.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 17 |Class:| NewsController
-|Date:| 01:01:09 01.30.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 17 |Class:| NewsController
-|Date:| 01:01:09 01.30.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 17 |Class:| NewsController
-|Date:| 01:01:09 01.30.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 17 |Class:| NewsController
-|Date:| 01:01:09 01.30.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 17 |Class:| NewsController
+|Date:| 01:01:01 01.30.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 17 |Class:| News
+|Date:| 01:01:08 01.30.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 17 |Class:| News
+|Date:| 01:01:09 01.30.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 17 |Class:| News
+|Date:| 01:01:09 01.30.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 17 |Class:| News
+|Date:| 01:01:09 01.30.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 17 |Class:| News
+|Date:| 01:01:09 01.30.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 17 |Class:| News
+|Date:| 22:02:28 02.02.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 19 |Class:| News
+|Date:| 23:02:31 02.02.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 20 |Class:| App\Controllers\News
+|Date:| 23:02:31 02.02.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 20 |Class:| App\Controllers\News
+|Date:| 23:02:07 02.02.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 20 |Class:| App\Controllers\News
+|Date:| 23:02:09 02.02.2020 |MyCode:| 2 |MyMsg:| Указанной статьи на сайте нет |File:| W:\domains\test.loc\www\index.php |Line:| 20 |Class:| App\Controllers\News

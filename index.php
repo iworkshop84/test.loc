@@ -10,23 +10,26 @@ $ctrl = !empty($pathParts[1]) ? $pathParts[1] : 'News';
 $act = !empty($pathParts[2]) ? $pathParts[2] : 'All';
 
 
-
 try{
-    $ctrollerClassName = $ctrl . 'Controller';
-    $controller = new $ctrollerClassName;
 
+    $ctrollerClassName = 'App\\Controllers\\' . $ctrl;
+
+    $controller = new $ctrollerClassName;
     $method = 'action' . $act;
     $controller->$method();
+
+
+
     }
 catch (Exception $e){
 
-    $errLog = new ErrorLog();
+    $errLog = new App\Classes\ErrorLog();
     $errLog->code = $e->getCode();
     $errLog->message = $e->getMessage();
     $errLog->trace = $e->getTrace();
     $errLog->writeLog();
 
-        $view = new View();
+        $view = new App\Classes\View();
         $view->message = $e->getMessage();
 
         switch ($errLog->code){
