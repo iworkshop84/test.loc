@@ -6,8 +6,8 @@
 namespace App\Controllers;
 
 use App\Models\News;
-use App\Classes\View;
-Use App\Classes\ErrorLog;
+//use App\Classes\View;
+use App\Classes\ErrorLog;
 
 class Admin
 {
@@ -28,7 +28,7 @@ class Admin
             }
         }
 
-        $view = new View();
+        $view = new \View();
         $view->display('admin/addnews.php');
     }
 
@@ -61,7 +61,7 @@ class Admin
 
             $item = News::getOneByColumn('id', $_GET['id']);
 
-            $view = new View();
+            $view = new \View();
             $view->item =  $item;
             $view->display('admin/editnews.php');
     }
@@ -71,7 +71,7 @@ class Admin
     {
         $items = News::orderGetAll('posttime', 'DESC');
 
-        $view = new View();
+        $view = new \View();
         $view->items = $items;
         $view->display('admin/all.php');
 
@@ -82,7 +82,7 @@ class Admin
     {
         $errors = ErrorLog::readLog();
 
-        $view = new View();
+        $view = new \View();
         if(!empty($errors)){
             $view->items = $errors;
         }else{
