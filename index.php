@@ -10,6 +10,7 @@ $ctrl = !empty($pathParts[1]) ? $pathParts[1] : 'News';
 $act = !empty($pathParts[2]) ? $pathParts[2] : 'All';
 
 
+
 try{
 
     $ctrollerClassName = 'App\\Controllers\\' . $ctrl;

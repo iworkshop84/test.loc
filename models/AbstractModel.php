@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Classes\DBpdo;
 
 
+
 abstract class AbstractModel
 {
     protected static $table;
